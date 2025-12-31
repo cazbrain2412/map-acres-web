@@ -1,0 +1,212 @@
+export type HomePayload = {
+  nav: { label: string; href: string }[];
+  hero: {
+    headline: string;
+    subheadline: string;
+    tabs: { key: string; label: string }[];
+    quickFilters: { label: string; value: string }[];
+  };
+  featured: {
+    title: string;
+    items: {
+      id: string;
+      title: string;
+      location: string;
+      priceLabel: string;
+      meta: string;
+      imageUrl: string;
+      badge?: string;
+    }[];
+  };
+  cities: {
+    title: string;
+    items: { name: string; listingsLabel: string; imageUrl: string }[];
+  };
+  projects: {
+    title: string;
+    items: {
+      id: string;
+      name: string;
+      city: string;
+      fromPriceLabel: string;
+      meta: string;
+    }[];
+  };
+  trust: {
+    stats: { label: string; value: string }[];
+    ctaPrimary: { label: string; href: string };
+    ctaSecondary: { label: string; href: string };
+  };
+  footer: {
+    columns: { title: string; links: { label: string; href: string }[] }[];
+    note: string;
+  };
+};
+
+export const homeData: HomePayload = {
+  nav: [
+    { label: "Buy", href: "/search?type=buy" },
+    { label: "Rent", href: "/search?type=rent" },
+    { label: "New Projects", href: "/search?type=new" },
+    { label: "Commercial", href: "/search?type=commercial" },
+    { label: "Agents", href: "/agents" },
+    { label: "Post Property", href: "/post-property" },
+  ],
+  hero: {
+    headline: "Find your next home with confidence",
+    subheadline:
+      "Search verified listings, explore localities, compare prices, and connect with trusted sellers.",
+    tabs: [
+      { key: "buy", label: "Buy" },
+      { key: "rent", label: "Rent" },
+      { key: "new", label: "New Projects" },
+      { key: "commercial", label: "Commercial" },
+    ],
+    quickFilters: [
+      { label: "Apartment", value: "apartment" },
+      { label: "House/Villa", value: "villa" },
+      { label: "Plot/Land", value: "plot" },
+      { label: "Office", value: "office" },
+      { label: "Shop", value: "shop" },
+    ],
+  },
+  featured: {
+    title: "Featured listings",
+    items: [
+      {
+        id: "p1",
+        title: "3 BHK Premium Apartment",
+        location: "New Town, Kolkata",
+        priceLabel: "₹1.25 Cr",
+        meta: "1450 sq.ft • 3 Bed • 2 Bath • Ready to move",
+        badge: "Verified",
+        imageUrl:
+          "https://images.unsplash.com/photo-1560185127-6a8c0f6c29c6?auto=format&fit=crop&w=1600&q=70",
+      },
+      {
+        id: "p2",
+        title: "Independent House with Parking",
+        location: "Whitefield, Bengaluru",
+        priceLabel: "₹2.10 Cr",
+        meta: "2200 sq.ft • 4 Bed • 3 Bath • Gated community",
+        imageUrl:
+          "https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&fit=crop&w=1600&q=70",
+      },
+      {
+        id: "p3",
+        title: "2 BHK Near Metro",
+        location: "Hitech City, Hyderabad",
+        priceLabel: "₹35k/mo",
+        meta: "1200 sq.ft • Furnished • Family preferred",
+        badge: "Hot",
+        imageUrl:
+          "https://images.unsplash.com/photo-1501183638710-841dd1904471?auto=format&fit=crop&w=1600&q=70",
+      },
+      {
+        id: "p4",
+        title: "Commercial Office Space",
+        location: "Andheri East, Mumbai",
+        priceLabel: "₹1.8 L/mo",
+        meta: "1200 sq.ft • Grade A • Near business hub",
+        imageUrl:
+          "https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=1600&q=70",
+      },
+    ],
+  },
+  cities: {
+    title: "Explore top cities",
+    items: [
+      {
+        name: "Kolkata",
+        listingsLabel: "12k+ listings",
+        imageUrl:
+          "https://images.unsplash.com/photo-1580060839134-75a5edca2e99?auto=format&fit=crop&w=1600&q=70",
+      },
+      {
+        name: "Bengaluru",
+        listingsLabel: "22k+ listings",
+        imageUrl:
+          "https://images.unsplash.com/photo-1588416936097-41850ab3d86d?auto=format&fit=crop&w=1600&q=70",
+      },
+      {
+        name: "Hyderabad",
+        listingsLabel: "18k+ listings",
+        imageUrl:
+          "https://images.unsplash.com/photo-1600628422019-6c9f6a3f8b37?auto=format&fit=crop&w=1600&q=70",
+      },
+      {
+        name: "Mumbai",
+        listingsLabel: "25k+ listings",
+        imageUrl:
+          "https://images.unsplash.com/photo-1529253355930-ddbe423a2ac7?auto=format&fit=crop&w=1600&q=70",
+      },
+    ],
+  },
+  projects: {
+    title: "New projects you should know",
+    items: [
+      {
+        id: "n1",
+        name: "Lakeview Residency",
+        city: "Kolkata",
+        fromPriceLabel: "From ₹85L",
+        meta: "2/3 BHK • Possession 2026 • Near IT hub",
+      },
+      {
+        id: "n2",
+        name: "Skyline Gardens",
+        city: "Bengaluru",
+        fromPriceLabel: "From ₹1.35 Cr",
+        meta: "3/4 BHK • Clubhouse • Metro connectivity",
+      },
+      {
+        id: "n3",
+        name: "Orchid Heights",
+        city: "Hyderabad",
+        fromPriceLabel: "From ₹72L",
+        meta: "2/3 BHK • Gated • High appreciation zone",
+      },
+    ],
+  },
+  trust: {
+    stats: [
+      { label: "Listings", value: "1M+" },
+      { label: "Cities", value: "600+" },
+      { label: "Daily searches", value: "250k+" },
+      { label: "Verified partners", value: "10k+" },
+    ],
+    ctaPrimary: { label: "Post Property Free", href: "/post-property" },
+    ctaSecondary: { label: "Talk to an Expert", href: "/contact" },
+  },
+  footer: {
+    columns: [
+      {
+        title: "Company",
+        links: [
+          { label: "About", href: "/about" },
+          { label: "Careers", href: "/careers" },
+          { label: "Contact", href: "/contact" },
+        ],
+      },
+      {
+        title: "Explore",
+        links: [
+          { label: "Buy", href: "/search?type=buy" },
+          { label: "Rent", href: "/search?type=rent" },
+          { label: "New Projects", href: "/search?type=new" },
+          { label: "Commercial", href: "/search?type=commercial" },
+        ],
+      },
+      {
+        title: "Resources",
+        links: [
+          { label: "Home Loan", href: "/loans" },
+          { label: "Price Trends", href: "/insights/prices" },
+          { label: "Locality Reviews", href: "/insights/localities" },
+        ],
+      },
+    ],
+    note: "This is a CMS-ready homepage UI. Replace homeData with your CMS integration when ready.",
+  },
+};
+
