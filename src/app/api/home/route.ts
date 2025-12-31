@@ -1,7 +1,7 @@
-import { NextResponse } from "next/server";
-import { homeData } from "@/lib/homeData";
-
 export const runtime = "nodejs";
+
+import { NextResponse } from "next/server";
+import { readHome } from "@/lib/homeStore";
 
 export async function GET() {
   const data = await readHome();
