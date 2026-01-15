@@ -1,3 +1,6 @@
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import HeroSlider from "@/components/home/HeroSlider";
@@ -7,9 +10,7 @@ import City from "@/models/City";
 import PropertyCard from "@/components/listings/PropertyCard";
 import Link from "next/link";
 import PropertyRow from "@/components/home/PropertyRow";
-import CategoryTiles from "@/components/home/CategoryTiles";
-import HowItWorks from "@/components/home/HowItWorks";
-import MapCTA from "@/components/home/MapCTA";
+
 
 export default async function HomePage() {
   await dbConnect();
