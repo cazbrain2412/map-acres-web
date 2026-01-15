@@ -161,9 +161,6 @@ export default async function HomePage() {
       <PropertyRow title="Projects" subtitle="PROJECTS" items={projects} viewAllHref="/search?type=projects" />
       <PropertyRow title="Plots / Land" subtitle="PLOTS/LAND" items={plots} viewAllHref="/search?category=plot" />
       <PropertyRow title="Commercial" subtitle="COMMERCIAL" items={commercial} viewAllHref="/search?category=commercial" />
-      <CategoryTiles />
-      <HowItWorks />
-      <MapCTA />
 
 
 
