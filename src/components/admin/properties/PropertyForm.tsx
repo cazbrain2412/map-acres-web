@@ -354,7 +354,12 @@ function UploadButton({ onUploaded, accept }: { onUploaded: (url: string) => voi
           if (!f) return;
           const fd = new FormData();
           fd.append("file", f);
-          const res = await fetch("/api/admin/upload", { method: "POST", body: fd });
+          const res = await fetch("/api/admin/upload", {
+  method: "POST",
+  body: fd,
+  credentials: "include",
+});
+
           const data = await res.json();
           if (data?.ok && data?.url) onUploaded(data.url);
           else alert(data?.error || "Upload failed");

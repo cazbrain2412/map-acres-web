@@ -10,6 +10,12 @@ import Property from "@/models/Property";
 import City from "@/models/City";
 import Link from "next/link";
 import PropertyRow from "@/components/home/PropertyRow";
+import TrustBadges from "@/components/home/TrustBadges";
+import USPMapDiscovery from "@/components/home/USPMapDiscovery";
+import TestimonialsSlider from "@/components/home/TestimonialsSlider";
+import FAQSection from "@/components/home/FAQSection";
+import USPShowcaseSlider from "@/components/home/USPShowcaseSlider";
+
 
 
 
@@ -110,6 +116,21 @@ export default async function HomePage() {
         </div>
       </section>
 
+
+
+
+
+
+<TrustBadges />
+<USPMapDiscovery />
+
+
+
+
+
+
+
+
       {/* Featured properties */}
       <section className="mx-auto max-w-7xl px-4 pb-14">
         <div className="flex items-end justify-between gap-4">
@@ -154,6 +175,11 @@ export default async function HomePage() {
           </div>
         )}
 
+
+<USPShowcaseSlider />
+
+
+
              </section>
 
 
@@ -167,6 +193,10 @@ export default async function HomePage() {
 
 
 
+<USPMapDiscovery />
+<TestimonialsSlider />
+<FAQSection />
+<TrustBadges />
       <Footer />
     </div>
   );

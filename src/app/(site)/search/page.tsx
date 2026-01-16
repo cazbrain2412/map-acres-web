@@ -10,14 +10,17 @@ import PropertyCard from "@/components/listings/PropertyCard";
 export default async function SearchPage({
   searchParams,
 }: {
-  searchParams: Record<string, string | string[] | undefined>;
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
 }) {
   await dbConnect();
 
-  const type = String(searchParams.type || "");
-  const q = String(searchParams.q || "").trim();
-  const city = String(searchParams.city || "").trim();
-  const category = String(searchParams.category || "").trim();
+  const sp = await searchParams;
+
+  const type = String(sp.type || "");
+  const q = String(sp.q || "").trim();
+  const city = String(sp.city || "").trim();
+  const category = String(sp.category || "").trim();
+
   const transaction = type === "rent" ? "rent" : type === "buy" ? "buy" : undefined;
 
   const filter: any = { status: "approved" };
