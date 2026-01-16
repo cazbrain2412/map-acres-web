@@ -19,11 +19,9 @@ export default function HeroSlider() {
     () => [
       {
         title: "Discover Property Across India.",
-        subtitle:
-          "Premium listings, projects, new launches & plotted land — with Map plotting + 360° viewing.",
-        video: "",
-
-        
+        subtitle: "Premium listings, projects, new launches & plotted land — with Map plotting + 360° viewing.",
+        video: "/videos/hero-1.mp4",
+        poster: "/images/hero-1.jpg",
         cta1Label: "Open Map Plotting",
         cta1Href: process.env.NEXT_PUBLIC_MAP_URL || "https://map.mapacres.com",
         cta2Label: "Browse Properties",
@@ -31,11 +29,9 @@ export default function HeroSlider() {
       },
       {
         title: "Plots / Land on Satellite Map.",
-        subtitle:
-          "CAD-style plotting directly on satellite — analyze boundaries, roads & development around.",
-        video: "",
-
-        
+        subtitle: "CAD-style plotting directly on satellite — analyze boundaries, roads & development around.",
+        video: "/videos/hero-2.mp4",
+        poster: "/images/hero-2.jpg",
         cta1Label: "Explore Plots/Land",
         cta1Href: "/search?category=plot",
         cta2Label: "Post Property",
@@ -43,11 +39,9 @@ export default function HeroSlider() {
       },
       {
         title: "Projects & New Launches.",
-        subtitle:
-          "Launch inventory, compare amenities, pricing, floor plans — faster decisions with verified info.",
-        video: "",
-
-       
+        subtitle: "Launch inventory, compare amenities, pricing, floor plans — faster decisions with verified info.",
+        video: "/videos/hero-3.mp4",
+        poster: "/images/hero-3.jpg",
         cta1Label: "New Launches",
         cta1Href: "/search?type=new-launches",
         cta2Label: "Projects",
@@ -70,25 +64,24 @@ export default function HeroSlider() {
     <section className="relative overflow-hidden">
       {/* Video layer */}
       <div className="relative h-[560px] w-full md:h-[620px]">
-       {s.video ? (
-  <video
-    key={s.video}
-    className="absolute inset-0 h-full w-full object-cover"
-    autoPlay
-    muted
-    loop
-    playsInline
-    preload="auto"
-  >
-    <source src={s.video} type="video/mp4" />
-  </video>
-) : (
-  <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,#1E5AA8_0%,#061023_55%,#061023_100%)]" />
-)}
-
+        <video
+          key={s.video}
+          className="absolute inset-0 h-full w-full object-cover"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          poster={s.poster}
+          onLoadedData={(e) => {
+            e.currentTarget.play().catch(() => {});
+          }}
+        >
+          <source src={s.video} type="video/mp4" />
+        </video>
 
         {/* Premium blue overlay */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,#1E5AA855,transparent_55%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(30,90,168,0.33),transparent_55%)]" />
         <div className="absolute inset-0 bg-gradient-to-b from-[#061023]/55 via-[#061023]/40 to-[#061023]/70" />
 
         {/* Content */}
@@ -98,12 +91,8 @@ export default function HeroSlider() {
               MapAcres • All India • Owner + Agent
             </div>
 
-            <h1 className="mt-5 text-4xl font-extrabold leading-tight text-white md:text-6xl">
-              {s.title}
-            </h1>
-            <p className="mt-4 text-base text-white/75 md:text-lg">
-              {s.subtitle}
-            </p>
+            <h1 className="mt-5 text-4xl font-extrabold leading-tight text-white md:text-6xl">{s.title}</h1>
+            <p className="mt-4 text-base text-white/75 md:text-lg">{s.subtitle}</p>
 
             <div className="mt-7 flex flex-wrap gap-3">
               <a
@@ -132,10 +121,7 @@ export default function HeroSlider() {
               <button
                 key={idx}
                 onClick={() => setI(idx)}
-                className={[
-                  "h-2 rounded-full transition-all",
-                  idx === i ? "w-8 bg-white" : "w-2 bg-white/40 hover:bg-white/60",
-                ].join(" ")}
+                className={["h-2 rounded-full transition-all", idx === i ? "w-8 bg-white" : "w-2 bg-white/40 hover:bg-white/60"].join(" ")}
                 aria-label={`Slide ${idx + 1}`}
               />
             ))}
@@ -161,4 +147,3 @@ export default function HeroSlider() {
     </section>
   );
 }
-

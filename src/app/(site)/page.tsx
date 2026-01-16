@@ -1,15 +1,17 @@
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
+import PropertyCard from "@/components/listings/PropertyCard";
 
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
-import HeroSlider from "@/components/home/HeroSlider";
+import HeroSliderClient from "@/components/home/HeroSliderClient";
 import dbConnect from "@/lib/db/mongoose";
 import Property from "@/models/Property";
 import City from "@/models/City";
-import PropertyCard from "@/components/listings/PropertyCard";
 import Link from "next/link";
 import PropertyRow from "@/components/home/PropertyRow";
+
+
 
 
 export default async function HomePage() {
@@ -78,7 +80,8 @@ export default async function HomePage() {
       <Header />
 
       {/* 99acres-style top video slider */}
-      <HeroSlider />
+      <HeroSliderClient />
+
 
       {/* Nearby Cities (same concept as 99acres) */}
       <section className="mx-auto max-w-7xl px-4 py-12">
