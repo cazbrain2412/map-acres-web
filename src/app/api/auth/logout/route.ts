@@ -2,16 +2,18 @@ import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
   const url = new URL(req.url);
-  const res = NextResponse.redirect(new URL("/admin/login", url.origin));
+  const res = NextResponse.redirect(new URL("/admin/login", url));
 
-  res.cookies.set("mapacres_token", "", {
-    httpOnly: true,
-    sameSite: "lax",
-    secure: process.env.NODE_ENV === "production",
+  const cookieOpts = {
     path: "/",
-    domain: process.env.NODE_ENV === "production" ? ".mapacres.com" : undefined,
     maxAge: 0,
-  });
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "lax" as const,
+    domain: process.env.NODE_ENV === "production" ? ".mapacres.com" : undefined,
+  };
+
+  res.cookies.set("ma_admin_token", "", cookieOpts);
+  res.cookies.set("mapacres_token", "", cookieOpts); // optional cleanup
 
   return res;
 }
