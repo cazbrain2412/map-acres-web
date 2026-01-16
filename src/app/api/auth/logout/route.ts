@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
-  const url = new URL(req.url); // gets current domain (mapacres.com or www.mapacres.com)
+  const url = new URL(req.url);
   const res = NextResponse.redirect(new URL("/admin/login", url.origin));
 
   res.cookies.set("mapacres_token", "", {

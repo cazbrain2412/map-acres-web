@@ -29,14 +29,17 @@ export async function POST(req: Request) {
   const token = signAdminToken({ uid: String(user._id), role: "admin", email: user.email });
 
   const res = NextResponse.json({ ok: true });
-  res.cookies.set("ma_admin_token", token, {
-    httpOnly: true,
-    sameSite: "lax",
-    secure: process.env.NODE_ENV === "production",
-    path: "/",
-    maxAge: 60 * 60 * 24 * 7,
-  });
 
-  return res;
-}
+res.cookies.set("mapacres_token", token, {
+  httpOnly: true,
+  sameSite: "lax",
+  secure: process.env.NODE_ENV === "production",
+  path: "/",
+  domain: process.env.NODE_ENV === "production" ? ".mapacres.com" : undefined,
+  maxAge: 60 * 60 * 24 * 7,
+});
+
+
+return res;
+
 

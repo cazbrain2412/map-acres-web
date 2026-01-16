@@ -22,7 +22,7 @@ export async function POST(req: Request) {
 
   // ✅ auth
     const cookieStore = await cookies();
-  const token = cookieStore.get("ma_admin_token")?.value || "";
+  const token = cookieStore.get("mapacres_token")?.value || "";
   const payload = token ? verifyAdminToken(token) : null;
   const createdBy = payload?.uid;
 
@@ -82,7 +82,7 @@ export async function GET() {
 
   // ✅ auth (admin only)
   const cookieStore = await cookies();
-  const token = cookieStore.get("ma_admin_token")?.value || "";
+  const token = cookieStore.get("mapacres_token")?.value || "";
   const payload = token ? verifyAdminToken(token) : null;
   const adminId = payload?.uid;
   if (!adminId) return NextResponse.json({ ok: false, error: "Unauthorized" }, { status: 401 });
