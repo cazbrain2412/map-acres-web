@@ -1,5 +1,6 @@
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
+import ImageCarousel from "@/components/listings/ImageCarousel";
 
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
@@ -58,14 +59,12 @@ export default async function PropertyDetail({
 
               <div className="aspect-[16/9] bg-[#F6F9FF]">
 
-                  {(p.coverImage || p.gallery?.[0]) ? (
-  // eslint-disable-next-line @next/next/no-img-element
-  <img
-    src={p.coverImage || p.gallery?.[0]}
-    alt={p.title}
-    className="h-full w-full object-cover"
-  />
-) : null}
+                                {(p.coverImage || p.gallery?.[0]) ? (
+                <div className="h-full w-full">
+                  {/* client carousel */}
+                </div>
+              ) : null}
+
 
 
 
@@ -113,6 +112,16 @@ export default async function PropertyDetail({
                   </div>
                 ) : null}
 
+                {p.shortDescription ? (
+                  <div className="mt-3 text-sm text-[#0B1220]/70">
+                    {p.shortDescription}
+                  </div>
+                ) : null}
+
+  
+
+
+
 {p.amenities?.length ? (
   <div className="mt-6">
     <div className="text-sm font-semibold text-[#0B1220]">Amenities</div>
@@ -125,6 +134,9 @@ export default async function PropertyDetail({
     </div>
   </div>
 ) : null}
+
+
+
 
 {p.nearbyPlaces?.length ? (
   <div className="mt-6">
@@ -143,14 +155,15 @@ export default async function PropertyDetail({
 {p.gallery?.length ? (
   <div className="mt-6">
     <div className="text-sm font-semibold text-[#0B1220]">Gallery</div>
-    <div className="mt-3 grid gap-3 sm:grid-cols-2">
-      {p.gallery.map((u: string, i: number) => (
+    <div className="mt-3 grid grid-cols-2 gap-3 md:grid-cols-4">
+      {p.gallery.map((u: string) => (
         // eslint-disable-next-line @next/next/no-img-element
-        <img key={i} src={u} alt="" className="h-56 w-full rounded-2xl object-cover border border-[#E6EEFF]" />
+        <img key={u} src={u} alt="" className="h-28 w-full rounded-2xl object-cover border border-[#E6EEFF]" />
       ))}
     </div>
   </div>
 ) : null}
+
 
 {p.floorPlans?.length ? (
   <div className="mt-6">

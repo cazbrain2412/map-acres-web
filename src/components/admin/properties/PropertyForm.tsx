@@ -331,9 +331,11 @@ description: "",
     <div className="flex items-center justify-between">
       <div className="text-xs font-semibold text-[#0B1220]/60">Gallery Images</div>
       <UploadButton
-        accept="image/*"
-        onUploaded={(url) => set("gallery", [...(form.gallery || []), url])}
-      />
+  accept="image/*"
+  multiple
+  onUploaded={(url) => set("gallery", [...(form.gallery || []), url])}
+/>
+
     </div>
     <ListField label="Gallery Images (URLs)" values={form.gallery} onChange={(v: string[]) => set("gallery", v)} />
 
@@ -398,36 +400,58 @@ description: "",
   );
 }
 
-function UploadButton({ onUploaded, accept }: { onUploaded: (url: string) => void; accept?: string }) {
+
+function UploadButton({
+  onUploaded,
+  accept,
+  multiple,
+}: {
+  onUploaded: (url: string) => void;
+  accept?: string;
+  multiple?: boolean;
+}) {
   return (
     <label className="inline-flex cursor-pointer items-center gap-2 rounded-2xl bg-[#225BA0] px-4 py-2 text-sm font-semibold text-white">
       Upload
       <input
         type="file"
         accept={accept || "*/*"}
+        multiple={!!multiple}
         className="hidden"
         onChange={async (e) => {
-          const f = e.target.files?.[0];
-          if (!f) return;
-          const fd = new FormData();
-          fd.append("file", f);
-          const res = await fetch("/api/admin/upload", {
-  method: "POST",
-  body: fd,
-  credentials: "include",
-});
+          const files = Array.from(e.target.files || []);
+          if (!files.length) return;
 
-const data = await res.json();
-if (data?.ok && data?.url) onUploaded(data.url);
-else alert(data?.error || "Upload failed");
+          try {
+            for (const f of files) {
+              const fd = new FormData();
+              fd.append("file", f);
 
-e.currentTarget.value = "";
+              const res = await fetch("/api/admin/upload", {
+                method: "POST",
+                body: fd,
+                credentials: "include",
+              });
 
+              const data = await res.json();
+              if (data?.ok && data?.url) onUploaded(data.url);
+              else throw new Error(data?.error || "Upload failed");
+            }
+          } catch (err: any) {
+            alert(err?.message || "Upload failed");
+          } finally {
+            e.currentTarget.value = "";
+          }
         }}
       />
     </label>
   );
 }
+
+
+       
+
+        
 
 
 function Field({ label, value, onChange }: any) {

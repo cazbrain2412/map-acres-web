@@ -1,7 +1,8 @@
 import Link from "next/link";
+import ImageCarousel from "@/components/listings/ImageCarousel";
 
 export default function PropertyCard({ p }: { p: any }) {
-  const img = p.coverImage || p.gallery?.[0] || "";
+  const images = [p.coverImage, ...(p.gallery || [])].filter(Boolean);
 
   const price =
     typeof p.price === "number" ? p.price.toLocaleString("en-IN") : p.price;
@@ -12,9 +13,12 @@ export default function PropertyCard({ p }: { p: any }) {
       className="group overflow-hidden rounded-3xl border border-[#E6EEFF] bg-white shadow-sm hover:shadow-md transition"
     >
       <div className="relative aspect-[16/10] bg-[#F6F9FF]">
-        {img ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img src={img} alt={p.title} className="h-full w-full object-cover" />
+        {images.length ? (
+          <ImageCarousel
+            images={images}
+            alt={p.title}
+            className="h-full w-full object-cover"
+          />
         ) : (
           <div className="flex h-full w-full items-center justify-center text-sm text-[#0B1220]/50">
             No image uploaded
@@ -43,6 +47,12 @@ export default function PropertyCard({ p }: { p: any }) {
           {p.title}
         </div>
 
+        {!!p.shortDescription && (
+          <div className="mt-1 text-sm text-[#0B1220]/70 line-clamp-2">
+            {p.shortDescription}
+          </div>
+        )}
+
         <div className="mt-1 text-sm text-[#0B1220]/60 line-clamp-1">
           {p.locality ? `${p.locality}, ` : ""}
           {p.city}
@@ -51,9 +61,7 @@ export default function PropertyCard({ p }: { p: any }) {
         <div className="mt-4 flex items-end justify-between gap-3">
           <div>
             <div className="text-xs text-[#0B1220]/55">Price</div>
-            <div className="text-lg font-extrabold text-[#0B1220]">
-              ₹ {price}
-            </div>
+            <div className="text-lg font-extrabold text-[#0B1220]">₹ {price}</div>
           </div>
 
           <div className="text-right">
@@ -65,4 +73,3 @@ export default function PropertyCard({ p }: { p: any }) {
     </Link>
   );
 }
-
