@@ -57,7 +57,8 @@ if (!createdBy) {
   const city = String(body.city || "").trim();
   if (!city) return NextResponse.json({ ok: false, error: "City is required" }, { status: 400 });
 
-  const status = body.status || "draft";
+  const status = body.status || "pending";
+
 
   // ✅ create
   try {

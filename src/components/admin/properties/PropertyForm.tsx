@@ -1,5 +1,7 @@
 "use client";
 
+import { useRouter } from "next/navigation";
+
 import { useEffect, useMemo, useState } from "react";
 import slugify from "slugify";
 
@@ -11,7 +13,8 @@ type Tab = (typeof TABS)[number];
 export default function PropertyForm({ mode, id }: { mode: Mode; id?: string }) {
   const [tab, setTab] = useState<Tab>("Basic");
   const [saving, setSaving] = useState(false);
-  
+    const router = useRouter();
+
   const [form, setForm] = useState<any>({
     // required
     title: "",
@@ -96,7 +99,12 @@ export default function PropertyForm({ mode, id }: { mode: Mode; id?: string }) 
       if (!data.ok) alert(data.error || "Failed");
       else {
         if (mode === "create") window.location.href = `/admin/properties/${data.item._id}`;
-        else alert("Saved ✅");
+        else {
+  alert("Saved ✅");
+  router.push("/admin/properties");
+  router.refresh();
+}
+
       }
     } finally {
       setSaving(false);
@@ -270,44 +278,59 @@ export default function PropertyForm({ mode, id }: { mode: Mode; id?: string }) 
           </div>
         )}
 
+
+
         {tab === "Media" && (
-          <div className="grid gap-4">
-            <Field label="Cover Image URL" value={form.coverImage} onChange={(v: string) => set("coverImage", v)} />
-            <ListField label="Gallery Images (URLs)" values={form.gallery} onChange={(v: string[]) => set("gallery", v)} />
-<div className="flex items-center justify-between">
-  <div className="text-xs font-semibold text-[#0B1220]/60">Gallery Images</div>
-  <UploadButton
-    accept="image/*"
-    onUploaded={(url) => set("gallery", [...(form.gallery || []), url])}
-  />
-</div>
-<ListField label="Gallery Images (URLs)" values={form.gallery} onChange={(v: string[]) => set("gallery", v)} />
+  <div className="grid gap-4">
 
-            <ListField label="Videos (YouTube/mp4 URLs)" values={form.videos} onChange={(v: string[]) => set("videos", v)} />
+    {/* Cover */}
+    <div className="flex items-center justify-between">
+      <div className="text-xs font-semibold text-[#0B1220]/60">Cover Image</div>
+      <UploadButton
+        accept="image/*"
+        onUploaded={(url) => set("coverImage", url)}
+      />
+    </div>
+    <Field label="Cover Image URL" value={form.coverImage} onChange={(v: string) => set("coverImage", v)} />
 
-<div className="flex items-center justify-between">
-  <div className="text-xs font-semibold text-[#0B1220]/60">Videos</div>
-  <UploadButton
-    accept="video/*"
-    onUploaded={(url) => set("videos", [...(form.videos || []), url])}
-  />
-</div>
-<ListField label="Videos (YouTube/mp4 URLs)" values={form.videos} onChange={(v: string[]) => set("videos", v)} />
+    {/* Gallery */}
+    <div className="flex items-center justify-between">
+      <div className="text-xs font-semibold text-[#0B1220]/60">Gallery Images</div>
+      <UploadButton
+        accept="image/*"
+        onUploaded={(url) => set("gallery", [...(form.gallery || []), url])}
+      />
+    </div>
+    <ListField label="Gallery Images (URLs)" values={form.gallery} onChange={(v: string[]) => set("gallery", v)} />
 
-            <ListField label="Floor Plans (image/pdf URLs)" values={form.floorPlans} onChange={(v: string[]) => set("floorPlans", v)} />
-<div className="flex items-center justify-between">
-  <div className="text-xs font-semibold text-[#0B1220]/60">Floor Plans</div>
-  <UploadButton
-    accept="image/*,application/pdf"
-    onUploaded={(url) => set("floorPlans", [...(form.floorPlans || []), url])}
-  />
-</div>
-<ListField label="Floor Plans (image/pdf URLs)" values={form.floorPlans} onChange={(v: string[]) => set("floorPlans", v)} />
+    {/* Videos */}
+    <div className="flex items-center justify-between">
+      <div className="text-xs font-semibold text-[#0B1220]/60">Videos</div>
+      <UploadButton
+        accept="video/*"
+        onUploaded={(url) => set("videos", [...(form.videos || []), url])}
+      />
+    </div>
+    <ListField label="Videos (YouTube/mp4 URLs)" values={form.videos} onChange={(v: string[]) => set("videos", v)} />
 
-            <ListField label="360 Tour Links (URLs/iframe links)" values={form.tour360} onChange={(v: string[]) => set("tour360", v)} />
-            <Field label="3D Try-On Floor Plan URL (NEW)" value={form.floorPlan3dUrl} onChange={(v: string) => set("floorPlan3dUrl", v)} />
-          </div>
-        )}
+    {/* Floor Plans */}
+    <div className="flex items-center justify-between">
+      <div className="text-xs font-semibold text-[#0B1220]/60">Floor Plans</div>
+      <UploadButton
+        accept="image/*,application/pdf"
+        onUploaded={(url) => set("floorPlans", [...(form.floorPlans || []), url])}
+      />
+    </div>
+    <ListField label="Floor Plans (image/pdf URLs)" values={form.floorPlans} onChange={(v: string[]) => set("floorPlans", v)} />
+
+    <ListField label="360 Tour Links (URLs/iframe links)" values={form.tour360} onChange={(v: string[]) => set("tour360", v)} />
+    <Field label="3D Try-On Floor Plan URL (NEW)" value={form.floorPlan3dUrl} onChange={(v: string) => set("floorPlan3dUrl", v)} />
+
+  </div>
+)}
+
+
+
 
         {tab === "Amenities" && (
           <div className="grid gap-4">
