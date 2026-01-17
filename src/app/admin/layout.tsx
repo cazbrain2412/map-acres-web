@@ -1,4 +1,5 @@
 import Link from "next/link";
+import LogoutButton from "@/components/admin/LogoutButton";
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -27,14 +28,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                 ← Back to website
               </Link>
 
-              <form action="/api/auth/logout" method="POST">
-                <button
-                  className="mt-2 w-full rounded-2xl bg-[#225BA0] px-4 py-3 text-sm font-semibold hover:opacity-90"
-                  type="submit"
-                >
-                  Logout
-                </button>
-              </form>
+              <LogoutButton className="mt-2 w-full rounded-2xl bg-[#225BA0] px-4 py-3 text-sm font-semibold hover:opacity-90" />
+
             </div>
           </aside>
 
