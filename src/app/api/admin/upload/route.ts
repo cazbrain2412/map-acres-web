@@ -15,11 +15,15 @@ function safeExt(filename: string) {
 
 export async function POST(req: Request) {
   // ✅ admin only
-  const cookieStore = await cookies();
-const token = cookieStore.get("mapacres_token")?.value || "";
+  // ✅ admin only
+const cookieStore = await cookies();
+const token = cookieStore.get("ma_admin_token")?.value || "";
 
-  const payload = token ? verifyAdminToken(token) : null;
-  if (!payload) return NextResponse.json({ ok: false, error: "Unauthorized" }, { status: 401 });
+const payload = token ? verifyAdminToken(token) : null;
+if (!payload) {
+  return NextResponse.json({ ok: false, error: "Unauthorized" }, { status: 401 });
+}
+
 
   const form = await req.formData();
   const file = form.get("file");

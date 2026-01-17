@@ -1,5 +1,5 @@
 import Link from "next/link";
-import LogoutButton from "@/components/admin/LogoutButton";
+import { LogoutButton } from "@/components/admin/LogoutButton";
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   return (

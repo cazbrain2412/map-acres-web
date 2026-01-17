@@ -363,6 +363,7 @@ function UploadButton({ onUploaded, accept }: { onUploaded: (url: string) => voi
 const data = await res.json();
 if (data?.ok && data?.url) onUploaded(data.url);
 else alert(data?.error || "Upload failed");
+
 e.currentTarget.value = "";
 
         }}

@@ -20,13 +20,21 @@ export async function POST(req: Request) {
 
   const body = await req.json().catch(() => ({}));
 
-  // ✅ auth
-    const cookieStore = await cookies();
-  const token = cookieStore.get("mapacres_token")?.value || "";
-  const payload = token ? verifyAdminToken(token) : null;
-  const createdBy = payload?.uid;
+ // ✅ auth
+const cookieStore = await cookies();
+const token =
+  cookieStore.get("ma_admin_token")?.value ||
+  cookieStore.get("mapacres_token")?.value ||
+  "";
 
-  if (!createdBy) return NextResponse.json({ ok: false, error: "Unauthorized" }, { status: 401 });
+
+const payload = token ? verifyAdminToken(token) : null;
+const createdBy = payload?.uid;
+
+if (!createdBy) {
+  return NextResponse.json({ ok: false, error: "Unauthorized" }, { status: 401 });
+}
+
 
   // ✅ required fields (with safe defaults)
   const title = String(body.title || "").trim();
@@ -82,7 +90,11 @@ export async function GET() {
 
   // ✅ auth (admin only)
   const cookieStore = await cookies();
-  const token = cookieStore.get("mapacres_token")?.value || "";
+  const token =
+  cookieStore.get("ma_admin_token")?.value ||
+  cookieStore.get("mapacres_token")?.value ||
+  "";
+
   const payload = token ? verifyAdminToken(token) : null;
   const adminId = payload?.uid;
   if (!adminId) return NextResponse.json({ ok: false, error: "Unauthorized" }, { status: 401 });
