@@ -24,11 +24,13 @@ const PropertySchema = new Schema(
     transaction: { type: String, enum: ["buy", "rent"], required: true },
     category: { type: String, enum: ["residential", "commercial", "plot"], required: true },
     type: { type: String, required: true, trim: true }, // Apartment / Villa / Office / Plot etc.
+shortDescription: { type: String, default: "" },
+description: { type: String, default: "" }, // keep this as LONG rich HTML
 
     // content
     title: { type: String, required: true, trim: true },
     slug: { type: String, required: true, unique: true },
-    description: { type: String, default: "" },
+
 
     // pricing + size
     price: { type: Number, required: true },

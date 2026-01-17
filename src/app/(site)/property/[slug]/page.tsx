@@ -104,10 +104,68 @@ export default async function PropertyDetail({
                   <div className="mt-6">
                     <div className="text-sm font-semibold text-[#0B1220]">Overview</div>
 
-                    <p className="mt-2 text-sm leading-6 text-[#0B1220]/70">{p.description}</p>
+                    <div
+  className="mt-2 text-sm leading-6 text-[#0B1220]/70"
+  dangerouslySetInnerHTML={{ __html: p.description }}
+/>
+
 
                   </div>
                 ) : null}
+
+{p.amenities?.length ? (
+  <div className="mt-6">
+    <div className="text-sm font-semibold text-[#0B1220]">Amenities</div>
+    <div className="mt-3 flex flex-wrap gap-2">
+      {p.amenities.map((a: string, i: number) => (
+        <span key={i} className="rounded-full border border-[#E6EEFF] bg-[#F6F9FF] px-3 py-1 text-xs font-semibold">
+          {a}
+        </span>
+      ))}
+    </div>
+  </div>
+) : null}
+
+{p.nearbyPlaces?.length ? (
+  <div className="mt-6">
+    <div className="text-sm font-semibold text-[#0B1220]">Nearby Places</div>
+    <div className="mt-3 grid gap-2">
+      {p.nearbyPlaces.map((n: any, i: number) => (
+        <div key={i} className="rounded-2xl border border-[#E6EEFF] bg-white p-3 text-sm">
+          <div className="font-semibold">{n.placeType}: {n.name}</div>
+          <div className="text-[#0B1220]/60">{n.distanceKm} km</div>
+        </div>
+      ))}
+    </div>
+  </div>
+) : null}
+
+{p.gallery?.length ? (
+  <div className="mt-6">
+    <div className="text-sm font-semibold text-[#0B1220]">Gallery</div>
+    <div className="mt-3 grid gap-3 sm:grid-cols-2">
+      {p.gallery.map((u: string, i: number) => (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img key={i} src={u} alt="" className="h-56 w-full rounded-2xl object-cover border border-[#E6EEFF]" />
+      ))}
+    </div>
+  </div>
+) : null}
+
+{p.floorPlans?.length ? (
+  <div className="mt-6">
+    <div className="text-sm font-semibold text-[#0B1220]">Floor Plans</div>
+    <div className="mt-3 grid gap-2">
+      {p.floorPlans.map((u: string, i: number) => (
+        <a key={i} href={u} target="_blank" rel="noreferrer"
+           className="rounded-2xl border border-[#E6EEFF] bg-white p-4 text-sm font-semibold hover:bg-[#F3F7FF]">
+          Open Floor Plan {i + 1} →
+        </a>
+      ))}
+    </div>
+  </div>
+) : null}
+
 
                 {((p.tour360 && p.tour360.length) || (p.videos && p.videos.length)) && (
 

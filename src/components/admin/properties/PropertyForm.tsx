@@ -1,6 +1,9 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { RichTextEditor } from "@/components/admin/RichTextEditor";
+
+import { RichTextField } from "@/components/admin/RichTextField";
 
 import { useEffect, useMemo, useState } from "react";
 import slugify from "slugify";
@@ -19,7 +22,12 @@ export default function PropertyForm({ mode, id }: { mode: Mode; id?: string }) 
     // required
     title: "",
     slug: "",
-    status: "draft",
+    
+shortDescription: "",
+description: "",
+
+    status: "approved",
+
     transaction: "buy",
     category: "residential",
     type: "Apartment",
@@ -33,6 +41,9 @@ export default function PropertyForm({ mode, id }: { mode: Mode; id?: string }) 
     // homepage controls
     featured: false,          // premium badge
     homeSections: [],         // ["showcase","newLaunches","projects","latest","plots","commercial","featured"]
+
+
+
 
     // media
     coverImage: "",
@@ -161,6 +172,29 @@ export default function PropertyForm({ mode, id }: { mode: Mode; id?: string }) 
         {tab === "Basic" && (
           <div className="grid gap-4 md:grid-cols-2">
             <Field label="Title" value={form.title} onChange={(v: string) => set("title", v)} />
+
+<div className="md:col-span-2">
+  <div className="text-xs font-semibold text-[#0B1220]/60">Short Description</div>
+  <textarea
+    spellCheck={false}
+    className="mt-2 w-full min-h-[90px] rounded-2xl border border-[#E6EEFF] px-4 py-3 outline-none focus:ring-2 focus:ring-[#225BA0]/20"
+    value={form.shortDescription || ""}
+    onChange={(e) => set("shortDescription", e.target.value)}
+    placeholder="1–2 lines summary for cards / SEO snippet"
+  />
+</div>
+
+<div className="md:col-span-2">
+  <div className="text-xs font-semibold text-[#0B1220]/60">Long Description (Rich Content)</div>
+  <div className="mt-2">
+    <RichTextEditor
+      value={form.description || ""}
+      onChange={(html) => set("description", html)}
+      placeholder="Write full property details with formatting..."
+    />
+  </div>
+</div>
+
 
             <div>
               <div className="text-xs font-semibold text-[#0B1220]/60">Slug</div>
